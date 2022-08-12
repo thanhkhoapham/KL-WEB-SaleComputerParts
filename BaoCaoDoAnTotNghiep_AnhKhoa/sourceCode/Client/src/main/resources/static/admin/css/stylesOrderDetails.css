@@ -1,0 +1,11 @@
+.wrapperUl {
+	list-style: none;
+} 
+
+.wrapperUl li span {
+	font-weight: 600
+}
+
+.wrapperUl li  {
+	font-size: 16px;
+}

@@ -1,0 +1,125 @@
+<div class="nav-md" th:fragment="form-add-user">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+	<script th:src="@{/admin/js/valid.js}" type="text/javascript"></script>
+	
+	<div class="container body">
+		<div class="main_container">
+			<div class="right_col" role="main" style="min-height: 792px;">
+				<div class="x_panel">
+					<div class="x_title">
+						<h2 th:if="${supplier.id == 0}">
+							Nhà cung cấp mới <small></small>
+						</h2>
+						<h2 th:if="${supplier.id != 0}">
+							Cập nhật nhà cung cấp <small></small>
+						</h2>
+						<div class="clearfix"></div>
+					</div>
+					<div class="form-group">
+						<div class="col-md-12 offset-md-12">
+							<a href="/admin/supplier" type="button" class="btn btn-primary">Quay
+								lai</a>
+						</div>
+					</div>
+					<div class="x_content">
+
+						<form th:if="${supplier.id == 0}" class="" action="add-supplier"
+							method="post" th:object="${supplier}">
+							<div class="field item form-group">
+								<label class="col-form-label col-md-3 col-sm-3  label-align">Tên
+									nhà cung cấp<span class="required">*</span>
+								</label>
+								<div class="col-md-6 col-sm-6">
+									<input class="form-control" data-validate-length-range="6"
+										data-validate-words="2" name="tenNhaCungCap" id="name"
+										placeholder="ex. John f. Kennedy" required="required">
+								</div>
+							</div>
+
+							<div class="field item form-group">
+								<label class="col-form-label col-md-3 col-sm-3  label-align">Địa
+									chỉ<span class="required">*</span>
+								</label>
+								<div class="col-md-6 col-sm-6">
+									<input class="form-control" type="text" id="address"
+										name="diaChi" pattern="(+\s)" title="Not null">
+								</div>
+							</div>
+
+							<div class="field item form-group">
+								<label class="col-form-label col-md-3 col-sm-3  label-align">Số
+									điện thoại<span class="required">*</span>
+								</label>
+								<div class="col-md-6 col-sm-6">
+									<input class="form-control" type="text" id="phone-number"
+										name="soDienThoai" pattern="0[0-9]{9}"
+										title="Số điện thoại bắt đầu bằng 0 và có 10 chữ số">
+								</div>
+							</div>
+
+							<div class="ln_solid">
+								<div class="form-group">
+									<div class="col-md-6 offset-md-3">
+										<button type="submit" class="btn btn-primary">Thêm</button>
+										<button type="reset" class="btn btn-success">Làm mới</button>
+									</div>
+								</div>
+							</div>
+						</form>
+
+						<form th:if="${supplier.id != 0}" class=""
+							action="update-supplier" method="post" th:object="${supplier}">
+							<input name="id" th:value="${supplier.id}" id="id" type="hidden">
+							<div class="field item form-group">
+								<label class="col-form-label col-md-3 col-sm-3  label-align">Tên
+									nhà cung cấp<span class="required">*</span>
+								</label>
+								<div class="col-md-6 col-sm-6">
+									<input class="form-control" data-validate-length-range="6"
+										data-validate-words="2" name="tenNhaCungCap"
+										th:value="${supplier.tenNhaCungCap}" id="name"
+										required="required">
+								</div>
+							</div>
+
+							<div class="field item form-group">
+								<label class="col-form-label col-md-3 col-sm-3  label-align">Địa
+									chỉ<span class="required">*</span>
+								</label>
+								<div class="col-md-6 col-sm-6">
+									<input class="form-control" type="text" id="address"
+										name="diaChi" th:value="${supplier.diaChi}" pattern="(+\s)"
+										title="Not null">
+								</div>
+							</div>
+
+							<div class="field item form-group">
+								<label class="col-form-label col-md-3 col-sm-3  label-align">Số
+									điện thoại<span class="required">*</span>
+								</label>
+								<div class="col-md-6 col-sm-6">
+									<input class="form-control" type="text" id="phone-number"
+										name="soDienThoai" th:value="${supplier.soDienThoai}"
+										pattern="0[0-9]{9}"
+										title="Số điện thoại bắt đầu bằng 0 và có 10 chữ số">
+								</div>
+							</div>
+
+							<div class="ln_solid">
+								<div class="form-group">
+									<div class="col-md-6 offset-md-3">
+										<button type="submit" class="btn btn-primary">Cập
+											nhật</button>
+										<button type="reset" class="btn btn-success">Làm mới</button>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

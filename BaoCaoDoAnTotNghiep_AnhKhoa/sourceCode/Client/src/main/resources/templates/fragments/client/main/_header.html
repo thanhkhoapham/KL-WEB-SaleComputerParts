@@ -1,0 +1,204 @@
+<div class="header" th:fragment="header">
+		<!-- ======================= header login, giỏ hàng ================================ -->
+		<section class="top-link clearfix" style="background:#333333;">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12" >
+						<ul class="nav navbar-nav topmenu-contact pull-left">
+							<li><i class="fa fa-phone"></i><span> Hotline:0965 915 401</span></li>
+						</ul>
+						<ul class="nav navbar-nav navbar-right topmenu  hidden-xs hidden-sm" th:unless="${session.user ne null}">
+							<li><a th:href="@{/auth/login}"><i class="fas fa-sign-in-alt"></i> Đăng nhập </a></li>
+							<li><a th:href="@{/auth/register}"><i class="fa fa-key"></i> Đăng ký </a></li>
+						</ul>
+						<ul class="nav navbar-nav navbar-right topmenu  hidden-xs hidden-sm" th:if="${session.user ne null}">
+							<li><p th:text="${'Xin chào '+ userinfo.userName}" th:with="userinfo=${session.user}" style="color: white"></p></li>
+							<li><a th:href="@{/userInfo(id = ${userinfo.userId})}" th:with="userinfo=${session.user}"><i class="fa fa-pencil-alt"></i> Thông tin cá nhân</a></li>
+							<li><a th:href="@{/orderList(uid = ${userinfo.userId})}" th:with="userinfo=${session.user}"><i class="fas fa-file"></i> Đơn hàng của tôi</a></li>
+							<li><a th:href="@{/auth/logout}"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+							<!-- <div th:text="${session.user}"></div> -->
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- ===========================header logo, tìm kiếm, giỏ hàng ================ -->
+		<section class="header-content clearfix">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-3 col-xs-12 col-sm-12 header-left text-center">
+							<div class="logo">
+								<a href="/" title="">
+									<img alt="" th:src="@{/client/images/logo.png}" class="img-responsive">
+								</a>
+							</div>
+						</div>
+
+						<div class="col-md-8 col-xs-12 col-sm-12 header-right pull-right">
+		<!--=========== phần giỏ hàng ============================-->
+							<div class="cart">
+								<div class="heading">
+									<a th:href="@{/cart}">
+										<span class="icon" style="width: -20%">icon</span>
+											<span id="cart-total">Giỏ hàng</span>
+											<i class="fa fa-arrow-right"></i>
+									</a>
+								</div>
+							</div>
+<!--							 =========== phần tìm kiếm========================= -->
+							<div class="search hidden-sm hidden-xs">
+								
+								<form action="/search?s=${s}">
+									<div class="input-cat form-search clearfix">
+										<div class="form-search-controls">
+											<input type="text" name="s" id="txtsearch" placeholder="Tìm kiếm...">											
+										</div>
+										<button type="submit" class="btn btn-search"><i class="fas fa-search"></i></button>
+										
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+
+				</div>
+		</section>
+<!--==================            Menu                    ===========================-->
+	<section class="navigation-menu clearfix">
+		<div class="container">
+			<div class="menu-top">
+				<div class="row">
+					<div class="col-md-3">
+						<div class="menu-cate menu-quick-select">
+							<div class="menu-cate-title">
+								<span><i class="fa fa-th-list"></i><a href="#">Danh mục sản phẩm</a></span>
+								<i class="fa fa-chevron-circle-down"></i>
+							</div>
+	<!-- ============		Danh sách sản phẩm 	======= -->
+							<ul class="menu-cate-content" >
+									<li>
+										<a href="/category/cpu"><i>
+											<svg style="width:21px;height:21px" viewBox="-1 -1 21 21">
+											    <path fill="currentColor" d="M22,9V7H20V5A2,2 0 0,0 18,3H4A2,2 0 0,0 2,5V19A2,2 0 0,0 4,21H18A2,2 0 0,0 20,19V17H22V15H20V13H22V11H20V9H22M18,19H4V5H18V19M6,13H11V17H6V13M12,7H16V10H12V7M6,7H11V12H6V7M12,11H16V17H12V11Z" />
+											</svg>
+										</i>CPU<span class="arrow-menu"><i class="fa fa-chevron-right "></i></span></a>
+											<div class="sub-menu hidden-xs">
+												<ul class="colum0">
+													<li><a th:href="@{/category/cpu(type='intel')}" >CPU Intel</a></li>
+												</ul>
+												<ul class="colum1">
+													<li><a th:href="@{/category/cpu(type='amd')}">CPU AMD</a></li>
+												</ul>
+											</div>
+									</li>
+									<li>
+										<a href="/category/mainboard"><i>
+										<svg style="width:21px;height:21px" viewBox="-1 0 21 21">
+										    <path fill="currentColor" d="M6,2H18A2,2 0 0,1 20,4V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V4A2,2 0 0,1 6,2M7,4A1,1 0 0,0 6,5A1,1 0 0,0 7,6A1,1 0 0,0 8,5A1,1 0 0,0 7,4M10,4A1,1 0 0,0 9,5A1,1 0 0,0 10,6A1,1 0 0,0 11,5A1,1 0 0,0 10,4M12,8A6,6 0 0,0 6,14A6,6 0 0,0 12,20A6,6 0 0,0 18,14A6,6 0 0,0 12,8M8.11,10.5H10C9.76,11.88 10,12.67 10.58,13.29C11.68,14.36 12.16,15.71 11.89,17.5H10C10.24,16.12 10,15.33 9.42,14.71C8.32,13.64 7.85,12.29 8.11,10.5M12.11,10.5H14C13.76,11.88 14,12.67 14.58,13.29C15.68,14.36 16.16,15.71 15.89,17.5H14C14.24,16.12 14,15.33 13.42,14.71C12.32,13.64 11.85,12.29 12.11,10.5Z" />
+										</svg>
+										</i>Mainboard<span class="arrow-menu"><i class="fa fa-chevron-right "></i></span></a>
+											<div class="sub-menu hidden-xs">
+												<ul class="colum0">
+													<li><a th:href="@{/category/mainboard(type='intel')}">Mainboard Intel</a></li>
+												</ul>
+												<ul class="colum1">
+													<li><a th:href="@{/category/mainboard(type='amd')}">Mainboard AMD</a></li>
+												</ul>
+											</div>
+									</li>
+									<li>
+										<a href="/category/ram"><i class="fa fa-microchip"></i>RAM<span class="arrow-menu"><i class="fa fa-chevron-right "></i></span></a>
+											<div class="sub-menu hidden-xs">
+												<ul class="colum0">
+													<li><a th:href="@{/category/ram(type='ddr3')}">RAM DDR3</a></li>
+													<li><a th:href="@{/category/ram(type='ddr4')}">RAM DDR4</a></li>
+												</ul>
+												<ul class="colum1">
+													<li><a th:href="@{/category/ram(type='ddr5')}">RAM DDR5</a></li>
+												</ul>
+											</div>
+									</li>
+									<li>
+										<a href="/category/ocung"><i>
+										<svg style="width:21px;height:21px" viewBox="1 0 21 21">
+										    <path fill="currentColor" d="M14.5,10.37C15.54,10.37 16.38,9.53 16.38,8.5C16.38,7.46 15.54,6.63 14.5,6.63C13.46,6.63 12.63,7.46 12.63,8.5A1.87,1.87 0 0,0 14.5,10.37M14.5,1A7.5,7.5 0 0,1 22,8.5C22,10.67 21.08,12.63 19.6,14H9.4C7.93,12.63 7,10.67 7,8.5C7,4.35 10.36,1 14.5,1M6,21V22H4V21H2V15H22V21H20V22H18V21H6M4,18V19H13V18H4M15,17V19H17V17H15M19,17A1,1 0 0,0 18,18A1,1 0 0,0 19,19A1,1 0 0,0 20,18A1,1 0 0,0 19,17Z" />
+										</svg>
+										</i>Ổ cứng<span class="arrow-menu"><i class="fa fa-chevron-right "></i></span></a>
+											<div class="sub-menu hidden-xs">
+												<ul class="colum0">
+													<li><a th:href="@{/category/ocung(type='hdd')}">Ổ cứng HDD</a></li>
+												</ul>
+												<ul class="colum1">
+													<li><a th:href="@{/category/ocung(type='ssd')}">Ổ cứng SSD</a></li>
+												</ul>
+											</div>
+									</li>
+									<li>
+										<a href="/category/vga"><i>
+										<svg style="width:21px;height:21px" viewBox="0 -1 21 21">
+										    <path fill="currentColor" d="M19,18H5V6H19M21,4H3C1.89,4 1,4.89 1,6V18A2,2 0 0,0 3,20H21A2,2 0 0,0 23,18V6C23,4.89 22.1,4 21,4Z" />
+										</svg>
+										</i>VGA<span class="arrow-menu"><i class="fa fa-chevron-right "></i></span></a>
+											<div class="sub-menu hidden-xs">
+												<ul class="colum0">
+													<li><a th:href="@{/category/vga(type='nvidia')}">VGA NVIDIA</a></li>
+												</ul>
+												<ul class="colum1">
+													<li><a th:href="@{/category/vga(type='amd')}">VGA AMD</a></li>
+												</ul>
+											</div>
+									</li>
+									<li>
+										<a href="/category/nguonmaytinh"><i>
+										<svg style="width:21px;height:21px" viewBox="-1 0 21 21">
+										    <path fill="currentColor" d="M8,2H16A2,2 0 0,1 18,4V20A2,2 0 0,1 16,22H8A2,2 0 0,1 6,20V4A2,2 0 0,1 8,2M8,4V6H16V4H8M16,8H8V10H16V8M16,18H14V20H16V18Z" />
+										</svg>
+										</i>Nguồn máy tính</a>
+									</li>
+							</ul>
+						</div>
+					</div> 
+					<div class="col-md-9 ">
+						<nav class="navbar nav-menu">
+							<div class="navbar-header">
+								<button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#mobile-menu" aria-controls="mobile-menu" aria-expanded="false">
+									<span class="icon-bar"><i class="fa fa-microchip"></i></span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+								</button>
+							</div>
+							<nav id="mobile-menu" class="mobile-menu collapse navbar-collapse">
+								<ul class="menu nav navbar-nav">
+								  	<li class="level0 active"><a class="" href="/">
+								  		<span><i class="fa fa-desktop"></i>Trang chủ</span></a>
+								  	</li>
+								  	
+									<li class="level0"><a class="" href="/info">
+										<span><i class="fa fa-folder"></i>Giới thiệu</span></a></li>
+										
+									<li class="level0"><a class="" href="#">
+										<span><i class="fa fa-microchip"></i>Liên hệ</span></a></li>
+									
+									
+								</ul>
+							</nav>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</section>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			var str = location.href.toLowerCase();
+			$("ul.menu li a").each(function () {
+				if (str.indexOf(this.href.toLowerCase()) >= 0) {
+					$("ul.menu li").removeClass("active");
+					$(this).parent().addClass("active");
+				}
+			});
+		});
+	</script>
+		
+	</div>

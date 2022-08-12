@@ -1,0 +1,119 @@
+<div class="nav-md" th:fragment="table-user">
+	<div class="container body">
+		<div class="main_container">
+			<div class="right_col" role="main" style="min-height: 792px;">
+				<div class="">
+					<div class="row">
+						<div class="col-md-12 col-sm-12 ">
+							<div class="x_panel">
+								<div class="x_title">
+									<h2>
+										Thông tin nhà cung cấp <small></small>
+									</h2>
+									<div class="clearfix"></div>
+								</div>
+								
+								<div  class="form-group">
+									<div class="col-md-12 offset-md-12">
+										<a href="/admin/supplier/add" type="button"
+											class="btn btn-primary">Thêm nhà cung cấp</a>
+									</div>
+								</div>										
+								<div class="x_content">
+									<div class="row">
+										<div class="col-sm-12">
+											<div class="card-box table-responsive">
+												<div id="datatable_wrapper"
+													class="dataTables_wrapper container-fluid dt-bootstrap no-footer">
+													<div class="row">
+														<div class="col-sm-12">
+															<table id="datatable"
+																class="table table-striped table-bordered dataTable no-footer"
+																style="width: 100%;" role="grid"
+																aria-describedby="datatable_info">
+																<thead>
+																	<tr role="row">
+																		<th class="sorting_asc" tabindex="0"
+																			aria-controls="datatable" rowspan="1" colspan="1"
+																			aria-sort="ascending"
+																			aria-label="Name: activate to sort column descending"
+																			style="width: 10%;">STT</th>
+																		<th class="sorting" tabindex="0"
+																			aria-controls="datatable" rowspan="1" colspan="1"
+																			aria-label="Position: activate to sort column ascending"
+																			style="width: 20%;">Tên nhà cung cấp</th>
+																		<th class="sorting" tabindex="0"
+																			aria-controls="datatable" rowspan="1" colspan="1"
+																			aria-label="Office: activate to sort column ascending"
+																			style="width: 35%;">Địa chỉ</th>
+																		<th class="sorting" tabindex="0"
+																			aria-controls="datatable" rowspan="1" colspan="1"
+																			aria-label="Age: activate to sort column ascending"
+																			style="width: 12%;">Số điện thoại</th>
+																		<th class="sorting" tabindex="0"
+																			aria-controls="datatable" rowspan="1"s colspan="1"
+																			aria-label="Salary: activate to sort column ascending"
+																			style="width: 25%;">Tác vụ</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<tr th:each="item : ${suppliers}" role="row" class="even">
+																		<td class="sorting_1" th:text="${itemStat.index+1}"></td>
+																		<td th:text="${item.tenNhaCungCap}"></td>
+																		<td th:text="${item.diaChi}"></td>
+																		<td th:text="${item.soDienThoai}"></td>
+																		<td><a th:href="@{/admin/supplier/update/{id}(id=${item.id})}" class="btn btn-info btn-xs"><i
+																				class="fa fa-edit"></i> Chỉnh sửa </a> 
+																			<a 	th:if="${session.user.role} eq 'ADMIN'"
+																				th:data-id ="${item.id}"
+																				th:data-name ="${item.tenNhaCungCap}"
+																				onclick="showModal(this.getAttribute('data-id'), this.getAttribute('data-name'))"
+																				class="btn btn-danger btn-xs" style="color: white;">
+																				<i class="fa fa-trash"></i> Xóa </a>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+														
+														<script>
+															function showModal(id, name){
+																$('#curName').text(name);
+																$('#yesOption').attr('href', '/admin/supplier/delete/'+id);
+																$('#confirmationId').modal('show')
+															}
+														</script>
+														
+														<!--Modal-->
+															<div class="modal fade" id="confirmationId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+															<div class="modal-dialog" role="document">
+																<div class="modal-content">
+																	<div class="modal-header">
+																		<h5 class="modal-title">Thông báo</h5>
+																			<a type="button" class="close" data-dismiss="modal" aria-label="Close">
+																				<span aria-hidden="true">&times;</span>
+																			</a>
+																	</div>
+																	<div class="modal-body">
+																		Bạn có muốn xóa "<span id="curName"></span>" ?
+																	</div>
+																	<div class="modal-footer">
+																		<a id="yesOption" type="button" class="btn btn-danger">Có</a>
+																		<a type="button" data-dismiss="modal" class="btn btn-primary" style="color: white;">Không</a>
+																	</div>
+																</div>
+															</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

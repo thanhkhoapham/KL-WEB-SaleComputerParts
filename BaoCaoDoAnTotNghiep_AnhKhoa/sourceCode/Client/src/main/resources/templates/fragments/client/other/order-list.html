@@ -1,0 +1,74 @@
+<div class="main" th:fragment="cart">
+        <div class="container">
+            <div class="row">
+            	<div class="col-md-3"></div>
+				<div class="col-md-9">
+					<div class="breadcrumb clearfix">
+						<ul>
+							<li class="home">
+								<a title="Đến trang chủ" href="/" itemprop="url"><span itemprop="title">Trang chủ</span></a>
+							</li>
+							<li>&nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></li>
+							<li class="icon-li"><strong>Danh sách đơn hàng</strong> </li>
+						</ul>
+					</div>
+					
+					<th:block th:if="${#lists.isEmpty(orderList)}">
+				         <h1>Bạn chưa có đơn hàng nào!!</h1>
+				         <a th:href="@{/}">Về trang chủ</a>
+				    </th:block>
+				    
+				    
+				    <th:block th:if="${not #lists.isEmpty(orderList)}">
+				    	
+				    	<div class="cart-content ng-scope" >
+							<h1 class="title"><span>Đơn hàng của tôi</span></h1>
+							<div class="cart-block">
+								
+								<div class="cart-info table-responsive">
+									<table class="table product-list">
+										<thead>
+											<tr>
+												<th>Mã đơn hàng</th>
+												<th>Ngày đặt</th>
+												<th>Ngày giao dự kiến</th>
+												<th>Tổng tiền</th>
+												<th>PT Thanh toán</th>
+												<th>Trạng thái</th>
+												<th></th>
+											</tr>										
+										</thead>
+										
+										<th:block th:each="order, varStatus : ${orderList}" >
+											<tr>
+												<th th:text="${order.id}"></th>
+												
+												<th th:text="${#dates.format(order.ngayDat, 'dd-MMM-yyyy')}"></th>
+												
+												<th th:text="${#dates.format(order.ngayGiao, 'dd-MMM-yyyy')}"></th>
+												
+												<th th:text="${#numbers.formatDecimal(order.tongTien, 0, 'COMMA', 0, 'POINT') +' đ'}"></th>
+												
+												<th th:text="${order.phuongThuc == 'TTtructiep' ? 'Thanh toán trực tiếp' : 'PayPal'}"></th>
+												
+												<th th:text="${order.trangThai.displayValue}"></th>
+												
+												<th><a th:href="@{/order(id=${order.id})}">
+												   Xem</a>
+												</th>
+												
+											
+												
+											</tr>
+										</th:block>
+									</table>
+								</div>
+								
+							</div>
+						</div>
+						
+				    </th:block>
+				</div>
+            </div>
+        </div>
+    </div>

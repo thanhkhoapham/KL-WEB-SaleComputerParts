@@ -1,0 +1,72 @@
+<div class="container" th:fragment="checkout-confirm">
+	 <div class="container">
+            <div class="row">
+            	<div class="col-md-3"></div>
+				<div class="col-md-9">
+					
+				   
+				    	<div class="cart-content ng-scope" >
+							<h1 class="title"><span>Thông tin đơn hàng</span></h1>
+							<ul> 
+					            <li style="font-size:16px">Tên người đặt: <span th:utext="${order.tenNguoiDung}"></span></li>
+					            <li style="font-size:16px">Số điện thoại: <span th:utext="${order.soDienThoai}"></span></li>
+					            <li style="font-size:16px">Địa chỉ: <span th:utext="${order.diaChi}"></span></li>
+					            <li style="font-size:16px">Ngày đặt: <span th:text="${#dates.format(order.ngayDat, 'dd-MMM-yyyy')}"></span></li>
+					            <li style="font-size:16px">Ngày giao dự kiến: <span th:text="${#dates.format(order.ngayGiao, 'dd-MMM-yyyy')}"></span></li>
+					            <li style="font-size:16px">
+					            	<span>Tổng thanh toán:</span> <strong th:text="${#numbers.formatDecimal(order.tongTien, 0, 'COMMA', 0, 'POINT') +' đ'}"></strong>
+									<!-- <small class="text-muted" th:text="${'('+ #numbers.formatDecimal(tongTien_dollar, 0, 'COMMA', 2, 'POINT') +' $)'}"></small> -->
+					            </li>
+					            <li style="font-size:16px">Phương thức thanh toán: 
+									<span th:if="${order.phuongThuc} eq 'paypal'" >PayPal</span>
+								    <span th:if="${order.phuongThuc} eq 'TTtructiep'">Thanh toán trực tiếp</span>
+					           	</li>
+					           	<li style="font-size:16px">Trạng thái: <span th:utext="${order.trangThai.displayValue}"></span></li>
+					         </ul>
+						</div><br>
+						
+						<div class="cart-content ng-scope">
+							<h1><span>Chi tiết đơn hàng</span></h1>
+							<div class="cart-block">
+								<div class="cart-info table-responsive">
+									<table class="table product-list">
+										<thead>
+											<tr>
+												<th>Sản phẩm</th>
+												<th>Hình ảnh</th>
+												<th>Giá</th>
+												<th>Số lượng</th>
+												<th>Thành tiền</th>
+											</tr>										
+										</thead>
+										
+										<th:block th:each="detail, varStatus : ${order.dsCT}" >
+											<tr>
+												<th th:text="${detail.sanPham.tenSanPham}"></th>
+												
+												<th><img style="height: 10em;width: 30en;" th:src="${'http://localhost:8080/api/' + detail.sanPham.UrlHinhAnh}"
+													class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt=""></th>
+													
+												<th th:text="${#numbers.formatDecimal(detail.sanPham.gia, 0, 'COMMA', 0, 'POINT') +' đ'}"></th>
+												
+												<th th:text="${detail.soLuong}"></th>
+												
+												<th th:text="${#numbers.formatDecimal(detail.thanhTien, 0, 'COMMA', 0, 'POINT') +' đ'}"></th>
+												
+											</tr>
+										</th:block>
+									</table>
+									
+								</div>
+								
+							</div>
+						</div>
+						
+						<div class="button text-right">
+							<a class="btn btn-primary" th:href="@{/orderList(uid = ${userinfo.userId})}" th:with="userinfo=${session.user}">Quay lại</a>
+						</div>
+					
+				</div>
+            </div>
+        </div>
+</div>

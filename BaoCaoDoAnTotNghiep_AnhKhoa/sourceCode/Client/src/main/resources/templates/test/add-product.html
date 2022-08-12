@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add new product</title>
+</head>
+<body>
+<h1>Create new product</h1>
+<form method="post" th:object="${productForm}" enctype="multipart/form-data" th:action="@{/upload}">
+    <table>
+        <tr>
+            <td>Name</td>
+            <td><input type="text"></td>
+        </tr>
+        <tr>
+            <td>Price</td>
+            <td><input type="text"></td>
+        </tr> 
+        <tr>
+            <td>Image</td>
+            <td><input type="file"></td>
+        </tr>
+        <tr>
+            <td>Loại sản phẩm</td>
+            <td>
+	            <select name="loai-sanpham" id="loai-sanpham" onchange="genderChanged(this)">
+				  <option value="laptop">Laptop</option>
+				  <option value="cpu">CPU</option>
+				</select>
+				<p style="color: red" id="show_message"></p>
+				<!-- <script>
+		            function genderChanged(obj)
+		            {
+		            	var message = document.getElementById('show_message');
+		                var value = obj.value;
+		            	if (value === 'laptop'){
+		                    message.innerHTML = "Laptop";
+		                }
+		                else if (value === 'cpu'){
+		                    message.innerHTML = "CPU";
+		                }
+		            }
+		 
+		        </script> -->
+			</td>
+        </tr>
+        <th:block th:if="${#strings.equals(product.loaiSanPham , 'laptop')}">
+	         <tr>
+	            <td>Laptop</td>
+	            <td><input type="text"></td>
+	        </tr> 
+        </th:block>
+         <th:block th:if="${product.loaiSanPham} eq 'cpu'">
+	         <tr>
+	            <td>CPU</td>
+	            <td><input type="text"></td>
+	        </tr> 
+        </th:block>
+        <tr>
+            <td th:text="${product.loaiSanPham}"></td>
+            <td><input type="submit" value="ADD"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
